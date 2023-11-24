@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{userDetails}"></title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center" th:text="#{userDetails}"></h1>
+<div class="container my-2">
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th th:text="#{username}"></th>
+            <th th:text="#{role}"></th>
+            <th th:text="#{cities}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:object="${detail}">
+            <th th:text="*{userId}"></th>
+            <th th:text="*{username}"></th>
+            <th th:text="*{userRole}"></th>
+            <th th:text="*{userCities}"></th>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/usersList" class="btn btn-warning" th:text="#{back}"></a>
+</div>
+</body>
+</html>

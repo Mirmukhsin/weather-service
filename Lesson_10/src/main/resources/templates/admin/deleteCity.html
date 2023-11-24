@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{deleteCity}"></title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-2 mt-5">
+            <h1 th:text="#{deleteCity}"></h1>
+            <form th:action="@{/deleteCity}" method="post">
+                <div class="alert alert-danger" th:object="${city}">
+                    <h2 th:text="#{deleteCityMessage}"></h2>
+                    <h2 th:text="*{name}"></h2>
+                    <input type="hidden" th:field="*{id}">
+                </div>
+                <button type="submit" class="btn btn-danger" th:text="#{yes}"></button>
+                <a href="/citiesList" class="btn btn-warning" th:text="#{back}"></a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

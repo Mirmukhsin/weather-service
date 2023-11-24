@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{addCityPage}"></title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center" th:text="#{addCityPage}"></h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-4 mt-5">
+            <form th:action="@{/addCity}" th:object="${city}" method="post">
+                <label for="name" class="form-label" th:text="#{cityName}"></label>
+                <input type="text" id="name" name="name" th:field="*{name}" class="form-control mb-4 col-4">
+                <div th:if="${#fields.hasErrors('name')}">
+                    <span th:each="err : ${#fields.errors('name')}" th:text="#{${err}}" style="color: red"></span>
+                </div>
+                <br>
+                <label for="country" class="form-label" th:text="#{countryName}"></label>
+                <input type="text" id="country" name="country" th:field="*{country}" class="form-control mb-4 col-4">
+                <div th:if="${#fields.hasErrors('country')}">
+                    <span th:each="err : ${#fields.errors('country')}" th:text="#{${err}}" style="color: red"></span>
+                </div>
+                <br>
+                <label for="population" class="form-label" th:text="#{population}"></label>
+                <input type="text" id="population" name="population" th:field="*{population}"
+                       class="form-control mb-4 col-4">
+                <div th:if="${#fields.hasErrors('population')}">
+                    <span th:each="err : ${#fields.errors('population')}" th:text="#{${err}}" style="color: red"></span>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-info" th:text="#{save}"></button>
+                <a href="/citiesList" class="btn btn-warning" th:text="#{back}"></a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

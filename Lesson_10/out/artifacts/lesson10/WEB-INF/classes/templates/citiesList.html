@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{citiesList}"></title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center" th:text="#{citiesList}"></h1>
+<div class="container my-2">
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th th:text="#{cityName}"></th>
+            <th th:text="#{countryName}"></th>
+            <th th:text="#{population}"></th>
+            <th th:text="#{function}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="city, count : ${cities}" th:object="${city}">
+            <th th:utext="${count.count}"></th>
+            <th th:text="*{id}"></th>
+            <th th:text="*{name}"></th>
+            <th th:text="*{country}"></th>
+            <th th:text="*{population}"></th>
+            <th sec:authorize="hasRole('USER')">
+                <a th:href="@{/subscribeCity/{id}(id=*{id})}" class="btn btn-primary" th:text="#{subscribe}"></a>
+            </th>
+            <th sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/adminWeatherData/{id}(id=*{id})}" class="btn btn-info" th:text="#{weatherData}"></a>
+                <a th:href="@{/editCity/{id}(id=*{id})}" class="btn btn-primary" th:text="#{edit}"></a>
+                <a th:href="@{/deleteCity/{id}(id=*{id})}" class="btn btn-danger" th:text="#{delete}"></a>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

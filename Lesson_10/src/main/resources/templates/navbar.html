@@ -1,0 +1,42 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<nav class="navbar navbar-expand-lg bg-transparent">
+    <div class="container-fluid" sec:authorize="isAuthenticated()">
+        <span class="navbar-brand fa-regular fa-user" th:text="| ${#authentication.name}|"></span>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active fa fa-cloud-sun-rain" aria-current="page" th:text="| #{weather}|"></a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('USER')">
+                    <a class="nav-link btn btn-outline-success fa-solid fa-tree-city" aria-current="page"
+                       href="/myCities" th:text="| #{myCities}|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-success fa-solid fa-list-ul" aria-current="page"
+                       href="/citiesList" th:text="| #{citiesList}|"></a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link btn btn-outline-success fa-solid fa-list-ul" aria-current="page"
+                       href="/usersList" th:text="| #{usersList}|"></a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link btn btn-outline-success fa-solid fa-plus" aria-current="page" href="/addCity"
+                       th:text="| #{addCityPage}|"></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                        <form method="get">
+                            <input type="submit" name="lang" value="UZ" class="btn btn-outline-primary">
+                            <input type="submit" name="lang" value="EN" class="btn btn-outline-primary">
+                        </form>
+                        <a href="/logout" class="btn btn-outline-danger fa-sharp fa-solid fa-right-from-bracket"
+                           th:text="| #{logout}|"></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

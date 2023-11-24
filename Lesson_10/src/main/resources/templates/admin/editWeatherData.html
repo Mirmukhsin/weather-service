@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{editWeatherData}"></title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center" th:text="#{editWeatherData}"></h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-4 mt-5">
+            <form th:action="@{/editWeatherData}" th:object="${weather}" method="post">
+                <ul th:if="${#fields.hasAnyErrors()}">
+                    <li th:each="err : ${#fields.errors()}" th:text="#{${err}}" style="color: red"
+                        class="alert alert-danger"></li>
+                    <a th:href="@{/editWeatherData/{id}(id=${dataId})}" class="btn btn-warning"
+                       th:text="#{tryAgain}"></a>
+                </ul>
+                <div th:unless="${#fields.hasAnyErrors()}">
+                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{cityId}">
+                    <label for="date" class="form-label" th:text="#{date}"></label>
+                    <input type="date" id="date" th:field="*{date}" class="form-control mb-4 col-4">
+                    <label for="temperature" class="form-label" th:text="#{temperature}"></label>
+                    <input type="number" id="temperature" th:field="*{temperature}" class="form-control mb-4 col-4">
+                    <button type="submit" class="btn btn-info" th:text="#{edit}"></button>
+                    <a th:href="@{/adminWeatherData/{id}(id=*{cityId})}" class="btn btn-warning" th:text="#{back}"></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

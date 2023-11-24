@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{logout}"></title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-2 mt-5">
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <form method="get">
+                    <input type="submit" name="lang" value="UZ" class="btn btn-outline-primary">
+                    <input type="submit" name="lang" value="EN" class="btn btn-outline-primary">
+                </form>
+            </div>
+            <h1 class="text-center" th:text="#{logout}"></h1>
+            <form method="post">
+                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
+                <div class="alert alert-danger">
+                    <h2 th:text="#{logOutMessage}"></h2>
+                </div>
+                <button type="submit" class="btn btn-danger" th:text="#{yes}"></button>
+                <a href="/citiesList" class="btn btn-warning" th:text="#{back}"></a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

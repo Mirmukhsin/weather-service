@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{usersList}"></title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center" th:text="#{usersList}"></h1>
+<div class="container my-2">
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th th:text="#{username}"></th>
+            <th th:text="#{function}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user, count : ${authUsers}" th:object="${user}">
+            <th th:utext="${count.count}"></th>
+            <th th:text="*{id}"></th>
+            <th th:text="*{username}"></th>
+            <th>
+                <a th:href="@{/userDetails/{id}(id=*{id})}" class="btn btn-primary" th:text="#{userDetails}"></a>
+                <a th:href="@{/editUser/{id}(id=*{id})}" class="btn btn-info" th:text="#{edit}"></a>
+                <a th:href="@{/deleteUser/{id}(id=*{id})}" class="btn btn-danger" th:text="#{delete}"></a>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/citiesList" class="btn btn-warning" th:text="#{back}"></a>
+</div>
+</body>
+</html>

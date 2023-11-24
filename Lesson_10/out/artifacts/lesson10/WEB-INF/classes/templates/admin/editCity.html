@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{editCity}"></title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center" th:text="#{editCity}"></h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-4 mt-5">
+            <form th:action="@{/editCity}" th:object="${city}" method="post">
+                <ul th:if="${#fields.hasAnyErrors()}">
+                    <li th:each="err : ${#fields.errors()}" th:text="#{${err}}" style="color: red"
+                        class="alert alert-danger"></li>
+                    <a th:href="@{/editCity/{id}(id=${cityId})}" class="btn btn-warning" th:text="#{tryAgain}"></a>
+                </ul>
+                <div th:unless="${#fields.hasAnyErrors()}">
+                    <input type="hidden" th:field="*{id}">
+                    <label for="name" class="form-label" th:text="#{cityName}"></label>
+                    <input type="text" id="name" th:field="*{name}" class="form-control mb-4 col-4">
+                    <label for="country" class="form-label" th:text="#{countryName}"></label>
+                    <input type="text" id="country" th:field="*{country}" class="form-control mb-4 col-4">
+                    <label for="population" class="form-label" th:text="#{population}"></label>
+                    <input type="text" id="population" th:field="*{population}" class="form-control mb-4 col-4">
+                    <button type="submit" class="btn btn-info" th:text="#{edit}"></button>
+                    <a href="/citiesList" class="btn btn-warning" th:text="#{back}"></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

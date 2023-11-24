@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{myCities}"></title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center" th:text="#{myCities}"></h1>
+<div class="container my-2">
+    <div class="row">
+        <div class="col-md-8 offset-2 mt-5">
+            <table class="table">
+                <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th th:text="#{cityName}"></th>
+                    <th th:text="#{function}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="city,count : ${myCities}" th:object="${city}">
+                    <th th:utext="${count.count}"></th>
+                    <th th:text="*{name}"></th>
+                    <th>
+                        <a th:href="@{/weatherData/{id}(id=*{id})}" class="btn btn-primary"
+                           th:text="#{weatherData}"></a>
+                        <a th:href="@{/deleteSubsCity/{id}(id=*{id})}" class="btn btn-danger" th:text="#{delete}"></a>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+            <a href="/citiesList" class="btn btn-warning" th:text="#{back}"></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

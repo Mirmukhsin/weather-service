@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{login}"></title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-4 mt-5">
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <form method="get">
+                    <input type="submit" name="lang" value="UZ" class="btn btn-outline-primary">
+                    <input type="submit" name="lang" value="EN" class="btn btn-outline-primary">
+                </form>
+            </div>
+            <h1 class="text-center" th:text="#{login}"></h1>
+            <div th:if="${errorMessage}" class="alert alert-danger">
+                <span th:text="#{${errorMessage}}"></span>
+            </div>
+            <form method="post">
+                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
+                <div class="mb-3">
+                    <label for="username" class="form-label" th:text="#{username}"></label>
+                    <input type="text" class="form-control" id="username" name="uname">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label" th:text="#{password}"></label>
+                    <input type="password" class="form-control" id="password" name="psd">
+                </div>
+                <button type="submit" class="btn btn-primary" th:text="#{login}"></button>
+                <a href="/register" class="btn btn-warning" th:text="#{register}"></a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

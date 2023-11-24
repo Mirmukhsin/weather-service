@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{weatherData}"></title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center" th:text="#{weatherData}"></h1>
+<th:block th:if="${weatherData.isEmpty()}">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-2 mt-5">
+                <div class="alert alert-danger">
+                    <h2 th:text="#{weatherDataNotFound}"></h2>
+                </div>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/addWeatherData/{id}(id=${id})}" class="btn btn-info" th:text="#{addData}"></a>
+                    <a href="/citiesList" class="btn btn-warning" th:text="#{back}"></a>
+                </div>
+                <a sec:authorize="hasRole('USER')" href="/myCities" class="btn btn-warning" th:text="#{back}"></a>
+            </div>
+        </div>
+    </div>
+</th:block>
+<div class="container my-2">
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <button class="btn btn-outline-dark " th:text="${weatherData.getFirst().cityName}"></button>
+        <a th:href="@{/addWeatherData/{id}(id=${id})}" class="btn btn-outline-info" sec:authorize="hasRole('ADMIN')"
+           th:text="#{addData}"></a>
+        <a sec:authorize="hasRole('ADMIN')" href="/citiesList" class="btn btn-outline-warning" th:text="#{back}"></a>
+        <form sec:authorize="hasRole('USER')" method="get">
+            <input type="submit" class="btn-check" name="kun" id="1kun" autocomplete="off" value="1">
+            <label class="btn btn-outline-dark" for="1kun" th:text="#{1Kunlik}"></label>
+
+            <input type="submit" class="btn-check" name="kun" id="1hafta" autocomplete="off" value="7">
+            <label class="btn btn-outline-dark" for="1hafta" th:text="#{1Haftalik}"></label>
+
+            <input type="submit" class="btn-check" name="kun" id="1oy" autocomplete="off" value="30">
+            <label class="btn btn-outline-dark" for="1oy" th:text="#{1Oylik}"></label>
+
+            <a sec:authorize="hasRole('USER')" href="/myCities" class="btn btn-warning" th:text="#{back}"></a>
+        </form>
+    </div>
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th th:text="#{date}"></th>
+            <th th:text="#{temperature}"></th>
+            <th sec:authorize="hasRole('ADMIN')" th:text="#{function}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="data,count : ${weatherData}" th:object="${data}">
+            <th th:utext="${count.count}"></th>
+            <th th:text="*{date}"></th>
+            <th th:text="|*{temperature}°|"></th>
+            <th sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/editWeatherData/{id}(id=*{id})}" class="btn btn-primary" th:text="#{edit}"></a>
+                <a th:href="@{/deleteWeatherData/{id}/{cityId}(id=*{id},cityId=*{cityId})}" class="btn btn-danger"
+                   th:text="#{delete}"></a>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

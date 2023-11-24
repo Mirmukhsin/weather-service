@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{editUser}"></title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center" th:text="#{editUser}"></h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-4 mt-5">
+            <form th:action="@{/editUser}" th:object="${authUser}" method="post">
+                <ul th:if="${#fields.hasAnyErrors()}">
+                    <li th:each="err : ${#fields.errors()}" th:text="#{${err}}" style="color: red"
+                        class="alert alert-danger"></li>
+                    <a th:href="@{/editUser/{id}(id=${userid})}" class="btn btn-warning" th:text="#{tryAgain}"></a>
+                </ul>
+                <div th:unless="${#fields.hasAnyErrors()}">
+                    <input type="hidden" th:field="*{id}">
+                    <label for="username" class="form-label" th:text="#{username}"></label>
+                    <input type="text" id="username" th:field="*{username}" class="form-control mb-4 col-4">
+                    <label for="role" class="form-label" th:text="#{role}"></label>
+                    <input type="text" id="role" th:field="*{role}" class="form-control mb-4 col-4">
+                    <button type="submit" class="btn btn-info" th:text="#{edit}"></button>
+                    <a href="/usersList" class="btn btn-warning" th:text="#{back}"></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

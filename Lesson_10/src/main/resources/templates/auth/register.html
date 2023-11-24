@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title th:text="#{register}"></title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-4 mt-5">
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <form method="get">
+                    <input type="submit" name="lang" value="UZ" class="btn btn-outline-primary">
+                    <input type="submit" name="lang" value="EN" class="btn btn-outline-primary">
+                </form>
+            </div>
+            <h1 class="text-center" th:text="#{register}"></h1>
+            <form action="/register" method="post" th:object="${authUser}">
+                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
+                <input type="hidden" name="role" th:value="USER">
+                <div class="mb-3">
+                    <label for="username" class="form-label" th:text="#{username}"></label>
+                    <input type="text" class="form-control" id="username" name="username" th:field="*{username}">
+                    <div th:if="${#fields.hasErrors('username')}">
+                        <span th:each="err : ${#fields.errors('username')}" th:text="#{${err}}"
+                              style="color: red"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label" th:text="#{password}"></label>
+                    <input type="password" class="form-control" id="password" name="password" th:field="*{password}">
+                    <div th:if="${#fields.hasErrors('password')}">
+                        <span th:each="err : ${#fields.errors('password')}" th:text="#{${err}}"
+                              style="color: red"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" th:text="#{register}"></button>
+                <a href="/login" class="btn btn-warning" th:text="#{login}"></a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
